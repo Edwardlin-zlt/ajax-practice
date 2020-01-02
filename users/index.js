@@ -24,7 +24,12 @@
   function updateItemData(id) {}
 
   // TODO: delete user info,,when success, run  deleteItem
-  function deleteItemData(id) {}
+  function deleteItemData(id) {
+      var userList = document.getElementById("user-list")
+      // TODO How to select an ele by attribution
+      var toDelEle = document.querySelector(`[data-id="${id}"]`)
+      userList.removeChild(toDelEle);
+  }
 
   document.getElementById("add-btn").addEventListener("click", function() {
     let $username = document.getElementById("username").value;
