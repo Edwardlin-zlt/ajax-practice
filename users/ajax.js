@@ -18,11 +18,16 @@ window.ajax = function(options) {
     onFail: options.fail || function(result) {}
   };
 
+  
   var xhr = new XMLHttpRequest();
   xhr.open(options.method, options.url, true);
+  for (key in options.headers){
+    xhr.setRequestHeader(key, options.headers[key]);
+  }
   xhr.onreadystatechange = function() {
+    // TODO 201 succeed
     if (xhr.readyState === 4) {
-      if (xhr.status === 200) {
+      if (xhr.status === 200 || xhr.status === 201) {
         options.onSuccess(xhr.responseText);
       } else {
         options.onFail(xhr.status);

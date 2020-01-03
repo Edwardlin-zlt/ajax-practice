@@ -1,19 +1,9 @@
 {
-    "users": [
-        {
-            "username": "jxua3qgb51c",
-            "password": "31ryc7kbcj3",
-            "id": 1
-        },
-        {
-            "username": "eeq9orte1xr",
-            "password": "yydnmpckq6d",
-            "id": 2
-        },
-        {
-            "username": "edward",
-            "password": "123456",
-            "id": 3
-        }
-    ]
+  "users": [
+    {
+      "username": "1i4l55a7bp6",
+      "password": "p9sfa1y0da",
+      "id": 1
+    }
+  ]
 }

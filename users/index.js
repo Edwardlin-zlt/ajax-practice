@@ -10,25 +10,57 @@
           url: API_ROOT,
           method: "get",
           success: function(result){
-              renderUserList(result);
+              let data = JSON.parse(result)
+              renderUserList(data);
           }
       }
       ajax(options);
   }
 
   // TODO:  add user info,when success, run addItem
-  function addItemData(data) {}
+  function addItemData(data) {
+      options = {
+          url: API_ROOT,
+          method: "POST",
+          headers: {'content-type': 'application/json'},
+          data: JSON.stringify(data),
+          success: function(result){
+            addItem(result);
+          },
+      }
+      ajax(options);
+  }
 
   // TODO: update user info,when success, run updateItem
   // 提示：Math.random().toString(36).substring(2) 生成随机的字符串
-  function updateItemData(id) {}
+  function updateItemData(id) {
+      let username = Math.random().toString(36).substring(2)
+      let password = Math.random().toString(36).substring(2)
+      options = {
+          url: API_ROOT+`/${id}`,
+          method: "PUT",
+          headers: {'content-type': 'application/json'},
+          data: JSON.stringify({
+              username: username,
+              password: password
+          }),
+          success: function(result){
+            updateItem(result);
+          },
+      }
+      ajax(options);
+  }
 
   // TODO: delete user info,,when success, run  deleteItem
   function deleteItemData(id) {
-      var userList = document.getElementById("user-list")
-      // TODO How to select an ele by attribution
-      var toDelEle = document.querySelector(`[data-id="${id}"]`)
-      userList.removeChild(toDelEle);
+      options = {
+          url: API_ROOT+`/${id}`,
+          method: "DELETE",
+          success: function(result){
+            deleteItem(result);
+          },
+      }
+      ajax(options);
   }
 
   document.getElementById("add-btn").addEventListener("click", function() {
@@ -48,6 +80,7 @@
 
     switch (true) {
       case event.target.innerHTML === "X":
+        console.log("XXXXX")
         deleteItemData(id);
         break;
       default:
@@ -59,9 +92,6 @@
     if (!Array.isArray(data) && !data instanceof Array) {
       return false;
     }
-
-    // TODO Should I add this parse statement here?
-    data = JSON.parse(data);
 
     // TODO What is acc?
     $userList.innerHTML = data.reduce((acc, cur) => {
